@@ -17,6 +17,7 @@ public class ZoomControl : MonoBehaviour {
 	void Update () {
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         float newZoom = Camera.main.orthographicSize + scroll * -zoomSpeed;
-        Camera.main.orthographicSize = Mathf.Clamp(newZoom, minZoomSize, maxZoomSize);
+        Camera.main.orthographicSize = 
+            Mathf.Clamp(newZoom, minZoomSize, maxZoomSize);
 	}
 }

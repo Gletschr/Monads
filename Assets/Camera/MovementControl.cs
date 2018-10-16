@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class MovementControl : MonoBehaviour {
 
-    public float movementSpeed = 0.02f;
-    private Vector3 mouseOrigin;
-    private float cameraOriginDx = 0.0f;
-    private float cameraOriginDy = 0.0f;
+    public float movementSpeed = 0.05f;
+    private Vector3 mouseOriginPos;
+    private Vector3 cameraOriginPos;
 
     // Use this for initialization
     void Start () {
@@ -17,13 +16,15 @@ public class MovementControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (Input.GetMouseButtonDown(0)) {
-            mouseOrigin = Input.mousePosition;
-            cameraOriginDx = transform.position.x - mouseOrigin.x;
-            cameraOriginDy = mouseOrigin.y - transform.position.y;
+            mouseOriginPos = Input.mousePosition;
+            cameraOriginPos = transform.position;
         } else if (Input.GetMouseButton(0)) {
-            float dx = Input.mousePosition.x - mouseOrigin.x - cameraOriginDx;
-            float dy = Input.mousePosition.y - mouseOrigin.y - cameraOriginDy;
-            transform.position = new Vector3(dx * -movementSpeed, dy * -movementSpeed, transform.position.z);
+            float dx = mouseOriginPos.x - Input.mousePosition.x;
+            float dy = mouseOriginPos.y - Input.mousePosition.y;
+            float newCameraPosX = cameraOriginPos.x + dx * movementSpeed;
+            float newCameraPosY = cameraOriginPos.y + dy * movementSpeed;
+            transform.position = 
+                new Vector3(newCameraPosX, newCameraPosY, transform.position.z);
         }
 	}
 }
