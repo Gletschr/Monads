@@ -2,23 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovementControl : MonoBehaviour {
+public class CameraMovementController : MonoBehaviour {
 
-    public float movementSpeed = 0.05f;
     private Vector3 mouseOriginPos;
     private Vector3 cameraOriginPos;
 
+    private Camera cam;
+
     // Use this for initialization
     void Start () {
-		
-	}
+        cam = GetComponent<Camera>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetMouseButtonDown(0)) {
+        if (Input.GetMouseButtonDown(1)) {
             mouseOriginPos = Input.mousePosition;
-            cameraOriginPos = transform.position;
-        } else if (Input.GetMouseButton(0)) {
+            cameraOriginPos = cam.transform.position;
+        } else if (Input.GetMouseButton(1)) {
+            float movementSpeed = cam.orthographicSize / 240.0f;
             float dx = mouseOriginPos.x - Input.mousePosition.x;
             float dy = mouseOriginPos.y - Input.mousePosition.y;
             float newCameraPosX = cameraOriginPos.x + dx * movementSpeed;
