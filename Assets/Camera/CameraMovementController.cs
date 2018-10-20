@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class CameraMovementController : MonoBehaviour {
 
-    private Vector3 mouseOriginPos;
-    private Vector3 cameraOriginPos;
+    private Vector3 mouseOriginWorldPos;
 
     private Camera cam;
 
@@ -17,14 +16,14 @@ public class CameraMovementController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (Input.GetMouseButtonDown(1)) {
-            mouseOriginPos = Input.mousePosition;
-            cameraOriginPos = cam.transform.position;
+            mouseOriginWorldPos = cam.ScreenToWorldPoint(Input.mousePosition);
         } else if (Input.GetMouseButton(1)) {
-            float movementSpeed = cam.orthographicSize / 240.0f;
-            float dx = mouseOriginPos.x - Input.mousePosition.x;
-            float dy = mouseOriginPos.y - Input.mousePosition.y;
-            float newCameraPosX = cameraOriginPos.x + dx * movementSpeed;
-            float newCameraPosY = cameraOriginPos.y + dy * movementSpeed;
+            float movementSpeed = 1.0f;
+            Vector3 mouseWorldPos = cam.ScreenToWorldPoint(Input.mousePosition);
+            float dx = mouseOriginWorldPos.x - mouseWorldPos.x;
+            float dy = mouseOriginWorldPos.y - mouseWorldPos.y;
+            float newCameraPosX = transform.position.x + dx * movementSpeed;
+            float newCameraPosY = transform.position.y + dy * movementSpeed;
             transform.position = 
                 new Vector3(newCameraPosX, newCameraPosY, transform.position.z);
         }
