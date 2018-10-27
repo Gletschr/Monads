@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraZoomController : MonoBehaviour {
+public class CameraZoom : MonoBehaviour {
+
+    Camera cam;
 
     public float minZoomSize = 1.0f;
     public float maxZoomSize = 20.0f;
-
-    private Camera cam;
 
 	// Use this for initialization
 	void Start () {

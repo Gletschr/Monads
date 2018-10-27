@@ -2,68 +2,81 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-class Interpreter {
-
-    public uint opcodeIndex = 0;
-
-
-}
-
-class MovementMemory {
-
-    public float[] data = new float[3];
-
-    public float GetPosX() {
-        return data[1];
-    }
-
-    public void SetPosX(float value) {
-        data[1] = value;
-    }
-
-    public float GetPosY() {
-        return data[2];
-    }
-
-    public void SetPosY(float value) {
-        data[2] = value;
-    }
-
-    public float GetSpeed() {
-        return data[0];
-    }
-
-    public void SetSpeed(float value) {
-        data[0] = value;
-    }
-
+enum MonadMemorySemantic {
+    kMovementDirectionX = 0,
+    kMovementDirectionY = 1,
+    kMovementSpeed = 2,
 }
 
 public class MonadBrain : MonoBehaviour {
 
-    // Movement
-    private MovementMemory movementMem = new MovementMemory();
+    byte[] dna;
+    byte[] mem;
 
-	// Use this for initialization
-	void Start () {
+    long memptr = 0;
+    long offset = 0;
 
+    delegate void Asm(MonadBrain brain);
+
+    static Asm[] asm = {
+        Inc,
+        Dec,
+        IncPtr,
+        DecPtr,
+    };
+
+    // Use this for initialization
+    void Start () {
+        mem = new byte[3];
+        dna = new byte[Random.Range(10, 100)];
+        for (int i = 0; i < dna.Length; ++ i) {
+            dna[i] = (byte)Random.Range(0, asm.Length);
+        }
     }
 	
 	// Update is called once per frame
 	void Update () {
-
-        // Movement
-        movementMem.SetSpeed(Random.Range(0.1f, 10.0f));
-        movementMem.SetPosX(Random.Range(-100.0f, 100.0f));
-        movementMem.SetPosY(Random.Range(-100.0f, 100.0f));
-    }
-
+        asm[dna[offset]](this);
+        if (offset >= dna.Length) {
+            offset = offset - dna.Length;
+        }
+	}
+ 
     public float GetMovementSpeed() {
-        return movementMem.GetSpeed();
+        return mem[(int)MonadMemorySemantic.kMovementSpeed] / 255.0f;
     }
 
-    public Vector3 GetMovementTargetPos() {
-        return new Vector3(movementMem.GetPosX(), movementMem.GetPosY(), 0.0f);
+    public Vector3 GetMovementDirection() {
+        float x = mem[(int)MonadMemorySemantic.kMovementDirectionX] / 127.0f;
+        float y = mem[(int)MonadMemorySemantic.kMovementDirectionY] / 127.0f;
+        return new Vector3(x - 1.0f, y - 1.0f, 0.0f);
+    }
+
+    static void Inc(MonadBrain brain) {
+        ++brain.mem[brain.memptr];
+        ++brain.offset;
+    }
+
+    static void Dec(MonadBrain brain) {
+        --brain.mem[brain.memptr];
+        ++brain.offset;
+    }
+
+    static void IncPtr(MonadBrain brain) {
+        ++brain.memptr;
+        if (brain.memptr == brain.mem.Length) {
+            brain.memptr = 0;
+        }
+        ++brain.offset;
+    }
+
+    static void DecPtr(MonadBrain brain) {
+        if (brain.memptr > 0) {
+            --brain.memptr;           
+        } else {
+            brain.memptr = brain.mem.Length - 1;
+        }
+        ++brain.offset;
     }
 
 }
