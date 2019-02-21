@@ -6,13 +6,13 @@ public class MonadMovement : MonoBehaviour {
 
     MonadBrain brain;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         brain = GetComponent<MonadBrain>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+    
+    // Update is called once per frame
+    void Update () {
         float speed = brain.GetMovementSpeed() * 0.1f;
         Vector3 pos = transform.position;
         Vector3 targetPos = pos + brain.GetMovementDirection();

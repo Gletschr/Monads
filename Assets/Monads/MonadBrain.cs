@@ -24,9 +24,9 @@ public class MonadBrain : MonoBehaviour {
             dna[i] = (byte)Random.Range(0, asm.Length);
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
+    
+    // Update is called once per frame
+    void Update () {
         Tick();
         UpdateOffset();
 

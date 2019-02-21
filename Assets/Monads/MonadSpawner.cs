@@ -6,17 +6,17 @@ public class MonadSpawner : MonoBehaviour {
 
     public GameObject monadPrefab;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 
     }
-	
-	// Update is called once per frame
-	void Update () {
-		if (Input.GetMouseButtonDown(0)) {
+    
+    // Update is called once per frame
+    void Update () {
+        if (Input.GetMouseButtonDown(0)) {
             SpawnRandomMonad(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         }
-	}
+    }
 
     void SpawnRandomMonad(Vector3 position) {
         GameObject monad = Instantiate(monadPrefab);

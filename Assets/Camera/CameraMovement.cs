@@ -12,9 +12,9 @@ public class CameraMovement : MonoBehaviour {
     void Start () {
         cam = GetComponent<Camera>();
     }
-	
-	// Update is called once per frame
-	void Update () {
+    
+    // Update is called once per frame
+    void Update () {
         if (Input.GetMouseButtonDown(1)) {
             mouseOriginWorldPos = cam.ScreenToWorldPoint(Input.mousePosition);
         } else if (Input.GetMouseButton(1)) {
@@ -26,5 +26,5 @@ public class CameraMovement : MonoBehaviour {
             transform.position = 
                 new Vector3(newCameraPosX, newCameraPosY, transform.position.z);
         }
-	}
+    }
 }
