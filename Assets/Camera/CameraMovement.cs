@@ -19,7 +19,8 @@ public class CameraMovement : MonoBehaviour {
     
     // Update is called once per frame
     void Update () {
-        Vector3 deltaPosition = new Vector3();
+        // Movement delta
+        Vector3 deltaPos = new Vector3();
 
         // Move camera by mouse
         if (Input.GetMouseButtonDown(1)) {
@@ -28,26 +29,22 @@ public class CameraMovement : MonoBehaviour {
             Vector3 mouseWorldPos = cam.ScreenToWorldPoint(Input.mousePosition);
             float dx = mouseOriginWorldPos.x - mouseWorldPos.x;
             float dy = mouseOriginWorldPos.y - mouseWorldPos.y;
-            deltaPosition = new Vector3(dx, dy, 0.0F);
+            deltaPos = new Vector3(dx, dy, 0.0F);
         } else { // Move camera by keyboard
             if (Input.GetKey(KeyCode.W)) {
-                deltaPosition = 
-                    deltaPosition + new Vector3(0, keyMovementSpeed, 0);
+                deltaPos += new Vector3(0, keyMovementSpeed, 0);
             }
             if (Input.GetKey(KeyCode.S)) {
-                deltaPosition =
-                    deltaPosition + new Vector3(0, -keyMovementSpeed, 0);
+                deltaPos += new Vector3(0, -keyMovementSpeed, 0);
             }
             if (Input.GetKey(KeyCode.A)) {
-                deltaPosition =
-                    deltaPosition + new Vector3(-keyMovementSpeed, 0, 0);
+                deltaPos += new Vector3(-keyMovementSpeed, 0, 0);
             }
             if (Input.GetKey(KeyCode.D)) {
-                deltaPosition =
-                    deltaPosition + new Vector3(keyMovementSpeed, 0, 0);
+                deltaPos += new Vector3(keyMovementSpeed, 0, 0);
             }
         }
 
-        transform.position = transform.position + deltaPosition;
+        transform.position = transform.position + deltaPos;
     }
 }

@@ -6,10 +6,10 @@ public class CameraZoom : MonoBehaviour {
 
     Camera cam;
 
-    [Range(1.0f, 20.0f)]
-    public float maxZoomValue = 20.0f;
+    private const float minZoomValue = 1.0f;
 
-    private readonly float minZoomValue = 1.0f;
+    [Range(minZoomValue, 20.0f)]
+    public float maxZoomValue = 20.0f;
 
     // Use this for initialization
     void Start () {
