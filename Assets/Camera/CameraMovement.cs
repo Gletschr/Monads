@@ -6,6 +6,8 @@ public class CameraMovement : MonoBehaviour {
 
     Camera cam;
 
+    public float keyMovementSpeed = 0.1F;
+
     private Vector3 mouseOriginWorldPos;
 
     // Use this for initialization
@@ -25,6 +27,18 @@ public class CameraMovement : MonoBehaviour {
             float newCameraPosY = transform.position.y + dy;
             transform.position = 
                 new Vector3(newCameraPosX, newCameraPosY, transform.position.z);
+        } else if (Input.GetKey(KeyCode.W)) {
+            transform.position = 
+                transform.position + new Vector3(0, keyMovementSpeed, 0);
+        } else if (Input.GetKey(KeyCode.S)) {
+            transform.position = 
+                transform.position + new Vector3(0, -keyMovementSpeed, 0);
+        } else if (Input.GetKey(KeyCode.A)) {
+            transform.position = 
+                transform.position + new Vector3(-keyMovementSpeed, 0, 0);
+        } else if (Input.GetKey(KeyCode.D)) {
+            transform.position = 
+                transform.position + new Vector3(keyMovementSpeed, 0, 0);
         }
     }
 }
