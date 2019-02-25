@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa641140674274745bacca52b62b3eb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxMemSize: 128
+  maxDnaSize: 1024
 --- !u!114 &7452162587859639851
 MonoBehaviour:
   m_ObjectHideFlags: 0
